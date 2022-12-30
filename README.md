@@ -39,16 +39,25 @@ This is a chrome extension that allows you to keep a list of movies you like, wa
 By default the application only allows you to download and upload files locally. To enable backing up to the cloud ( Google Drive ) you need to create a new project at [Google Cloud](https://cloud.google.com/).
 
 - Add the following to the **manifest.json**:
-
 ```
-"key": "",
+"key": ""
+```
+- From ```chrome://extensions``` pack the extension
+- Open the **.pem** file, copy the private key and paste it into **"key"** in **manifest.json**.
+- Load the extension again in the browser and note the new given id.
+- Go to [Google Cloud](https://console.cloud.google.com/), create a new project and enable the **Google Drive API**.
+- Setup an **OAuth Consent Screen**. Add your account at **Test users**.
+- Under **APIs & Services** create an **OAuth Client ID**. Choose **Application type: Chrome App** and enter the extension's id in **Application ID**.
+- Add to **manifest.json**:
+```
 "oauth2": {
     "client_id": "",
     "scopes":["https://www.googleapis.com/auth/drive.file"]
-},
+}
 ```
-- From ```chrome://extensions``` pack the extension
-- Open the **.pem** file, copy the private key and paste it into **"key"** in **manifest.json*.
-- Go to [Google Cloud](https://console.cloud.google.com/), create a new project and enable the Google Drive API.
-- Under **APIs & Services** create an **OAuth Client ID** and paste it into **"client_id"** in **manifest.json** and setup an **OAuth Consent Screen**.
+- Copy the **OAuth Client ID** and paste it into **"client_id"**.
 - Put the ```cloudbackup.js``` file in your extension ```scripts``` folder and add ```<script src="scripts/cloudbackup.js"></script>``` in **movies.html**
+
+## Notes
+- The extension is using the new Manifest V3.
+- Developed and tested with Google Chrome. Not sure if it works with other Chromium based browsers eg. Brave.
