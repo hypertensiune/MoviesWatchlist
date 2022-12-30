@@ -200,7 +200,7 @@ class ContentScript{
     }
 
     getPoster(){
-        let imdbURL = document.querySelector("a[href^='https://www.imdb.com/']").getAttribute("href");
+        let imdbURL = document.querySelector("div.TzHB6b.cLjAic.K7khPe a[href^='https://www.imdb.com/']").getAttribute("href");
 
         let posterPath = document.querySelector("div.PZPZlf").getAttribute("data-lpage");
 
