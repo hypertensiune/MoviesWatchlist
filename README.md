@@ -11,7 +11,14 @@ Hyper Movie Watchlist
 
 ## Description
 
-This is a chrome extension that allows you to keep a list of movies you like, want to see and group them by your preferences directly in your browser. Add movies and shows to custom lists directly from a google search. Mark titles as favorites and keep track of movies you've already watched. 
+This is a chrome extension that allows you to keep a list of movies you like, want to see and group them by your preferences directly in your browser. 
+
+### Features
+ - Add movies and shows to custom lists directly from a google search. 
+ - Mark titles as favorites and keep track of movies you've already watched. 
+ - Filter the lists that you are viewing.
+ - Drag & drop movies from one list to another to copy.
+ - Export / import data file and cloud backing up ( see Google Drive Integration ).
 
 <div align="center">
     <img src="https://github.com/hypertensiune/Movies-Watchlist/blob/main/gifs/gif1.gif"/ width=300>
