@@ -17,8 +17,9 @@ This is a chrome extension that allows you to keep a list of movies you like, wa
     <img src="https://github.com/hypertensiune/Movies-Watchlist/blob/main/gifs/gif1.gif"/ width=300>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="https://github.com/hypertensiune/Movies-Watchlist/blob/main/gifs/gif2.gif"/ width=125>
+    <br>
+    <img src="https://github.com/hypertensiune/Movies-Watchlist/blob/main/gifs/img1.png" width=700/>
 </div>
-
 
 ## Installation
 
