@@ -94,20 +94,8 @@ function addListeners(){
         $(this).find("div.container").removeClass("is-hover");
     });
 
-    
+
     // ==================== List selection ====================
-
-    $("#new").click(function(){
-        DataManager.createList();
-    });
-
-    $("#checkbox-dropdown").click(function(){
-        $(this).toggleClass("is-active");
-    });
-
-    $("#checkbox-dropdown ul").click(function(e){
-        e.stopPropagation();
-    });
 
     $("label").on("click", function(){
         $(this).toggleClass("is-active")
@@ -132,6 +120,21 @@ function addListeners(){
 }
 
 function addPermanentListeners(){
+    // ==================== List selection ====================
+
+    $("#new").click(function(){
+        DataManager.createList();
+    });
+
+    $("#checkbox-dropdown").click(function(){
+        $(this).toggleClass("is-active");
+    });
+
+    $("#checkbox-dropdown ul").click(function(e){
+        e.stopPropagation();
+    });
+    
+
     // ==================== File menu ====================
 
     $("#file-btn").on("click", function(){
