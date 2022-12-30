@@ -64,7 +64,7 @@ class ContentScript{
             .then(res => res.text())
             .then(html => {
                 this.html.insertAdjacentHTML("afterbegin", html);
-                document.querySelector("#MovieBookmark-selector img").src = chrome.runtime.getURL("img/img1.png");
+                document.querySelector("#MovieBookmark-selector img").src = chrome.runtime.getURL("img/img2.png");
                 this.setColorTheme();
             });
         

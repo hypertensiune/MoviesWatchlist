@@ -27,7 +27,7 @@ class UI{
      * Add a title to a list
      */
     static addTitleToList(title, list){
-        $(`#wrapper div.list[data-list=${list}] div.container`).append(UI.cardComponent(
+        $(`#wrapper div.list[data-list='${list}'] div.container`).append(UI.cardComponent(
             title,
             DATA.all[title]["poster"],
             DATA.all[title]["release_date"],
@@ -36,7 +36,7 @@ class UI{
         ));
         
         let n = parseInt($(`#wrapper div.list[data-list='${list}'] h2 span.size`).text()) + 1;
-        $(`#wrapper div.list[data-list=${list}] h2 span.size`).text(n);
+        $(`#wrapper div.list[data-list='${list}'] h2 span.size`).text(n);
         
         $(".btn, div.image, div.card").unbind();
         addListeners();
