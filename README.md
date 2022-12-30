@@ -40,6 +40,16 @@ By default the application only allows you to download and upload files locally.
 
 - From ```chrome://extensions``` pack the extension
 - Open the **.pem** file, copy the private key and paste it into **"key"** in **manifest.json**
+- Add the following to the **manifest.json**:
+
+```
+"key": "",
+"oauth2": {
+    "client_id": "",
+    "scopes":["https://www.googleapis.com/auth/drive.file"]
+},
+```
+
 - Go to [Google Cloud](https://console.cloud.google.com/), create a new project and enable the Google Drive API.
 - Under **APIs & Services** create an **OAuth Client ID** and paste it into **"client_id"** in **manifest.json** and setup an **OAuth Consent Screen**.
-- Put the ```cloudbackup.js``` file in your extension ```scripts``` folder. 
+- Put the ```cloudbackup.js``` file in your extension ```scripts``` folder and add ```<script src="scripts/cloudbackup.js"></script>``` in **movies.html**
