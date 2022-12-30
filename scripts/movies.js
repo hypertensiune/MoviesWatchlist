@@ -93,9 +93,8 @@ function addListeners(){
         e.preventDefault();
         $(this).find("div.container").removeClass("is-hover");
     });
-}
 
-function addPermanentListeners(){
+    
     // ==================== List selection ====================
 
     $("#new").click(function(){
@@ -130,8 +129,9 @@ function addPermanentListeners(){
         UI.filter();
     });
 
+}
 
-
+function addPermanentListeners(){
     // ==================== File menu ====================
 
     $("#file-btn").on("click", function(){
