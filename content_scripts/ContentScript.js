@@ -263,7 +263,7 @@ class ContentScript{
             if(list){
                 that.DATA.lists[list] = [];
                 that.save();
-                that.addListButtons();
+                that.addListButtons(that);
             }
         });
     }
