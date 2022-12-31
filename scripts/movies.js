@@ -1,6 +1,34 @@
 let DATA = null;
 let viewList = [];
 
+
+// https://stackoverflow.com/questions/50324086/lazy-load-with-large-number-of-images
+
+$.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
+function showImgsIfInViewport(){
+    $("img[data-src]").each(function(){
+        let $i = $(this);
+        if($i.isInViewport()){
+            UI.numberOfLoadedImgs++;
+            $i.attr("src", $i.attr("data-src")).removeAttr("data-src");
+
+            if(UI.numberOfLoadedImgs == UI.numberOfImgs)
+                $(window).unbind();
+        }
+    });
+}
+
+$(window).on('scroll', showImgsIfInViewport);
+
 chrome.storage.onChanged.addListener((changes, namespace) => {
     if(namespace == "local" && changes["mbe_data"]["newValue"]["saved"] == "externally"){
         DATA = changes["mbe_data"]["newValue"];
@@ -15,7 +43,9 @@ $(window).on("load", async () => {
     UI.display(DATA);
     addListeners();
     addPermanentListeners();
+    showImgsIfInViewport();
 });
+
 
 function addListeners(){
     // ==================== Quick action buttons ====================
@@ -133,7 +163,7 @@ function addPermanentListeners(){
     $("#checkbox-dropdown ul").click(function(e){
         e.stopPropagation();
     });
-    
+
 
     // ==================== File menu ====================
 

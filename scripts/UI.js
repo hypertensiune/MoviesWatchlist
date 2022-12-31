@@ -2,6 +2,9 @@
  * Functions for managing the movies UI
  */
 class UI{
+    static numberOfImgs = 0;
+    static numberOfLoadedImgs = 0;
+
     /**
      * Remove a title from a list
      */
@@ -71,10 +74,11 @@ class UI{
      * @returns 
      */
     static cardComponent(title, poster_path, release_date, favorite, watched){
+        UI.numberOfImgs++;
         let html = `
             <div class="card" data-title="${title}" draggable=true>
                 <div class="image">
-                    <img src='${poster_path}' draggable=false>
+                    <img src="img/loading.gif" data-src='${poster_path}' loading="lazy" draggable=false>
                 </div>
                 <div class="buttons">
                     <div class="btn favorite ${favorite ? "active" : ""}"><i class="fa-regular fa-heart unchecked"></i><i class="fa-solid fa-heart checked"></i></div>
@@ -99,6 +103,8 @@ class UI{
      * Display MBE data
      */
     static display(){
+        let d1 = new Date();
+
         let html = "";
         let options = `<li>
                             <label data-list="All">All <i class="fa-solid fa-check"></i></label>
@@ -120,6 +126,10 @@ class UI{
 
         $("#wrapper").html(html);
         $(".checkbox-dropdown-list").html(options);
+
+        let d2 = new Date();
+
+        console.log((d2 - d1) / 1000);
     }
     
     /**
