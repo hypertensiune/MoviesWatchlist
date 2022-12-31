@@ -34,14 +34,15 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
     if(namespace == "local" && changes["mbe_data"]["newValue"]["saved"] == "externally"){
         DATA = changes["mbe_data"]["newValue"];
         console.log(DATA);
-        UI.display(DATA);
+        UI.display();
         addListeners();
+        showImgsIfInViewport();
     }
 });
 
 $(window).on("load", async () => {
     DATA = await DataManager.getData();
-    UI.display(DATA);
+    UI.display();
     addListeners();
     addPermanentListeners();
     showImgsIfInViewport();
