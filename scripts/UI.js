@@ -131,6 +131,7 @@ class UI{
 
         console.log((d2 - d1) / 1000);
     }
+
     
     /**
      * Filter displayed lists

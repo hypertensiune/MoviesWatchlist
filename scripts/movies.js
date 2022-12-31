@@ -29,6 +29,7 @@ function showImgsIfInViewport(){
 
 $(window).on('scroll', showImgsIfInViewport);
 
+
 chrome.storage.onChanged.addListener((changes, namespace) => {
     if(namespace == "local" && changes["mbe_data"]["newValue"]["saved"] == "externally"){
         DATA = changes["mbe_data"]["newValue"];
