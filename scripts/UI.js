@@ -35,7 +35,8 @@ class UI{
             DATA.all[title]["poster"],
             DATA.all[title]["release_date"],
             DATA.all[title]["favorite"],
-            DATA.all[title]["watched"]
+            DATA.all[title]["watched"],
+            "ADD"
         ));
         
         let n = parseInt($(`#wrapper div.list[data-list='${list}'] h2 span.size`).text()) + 1;
@@ -73,12 +74,19 @@ class UI{
      * @param {Boolean} watched 
      * @returns 
      */
-    static cardComponent(title, poster_path, release_date, favorite, watched){
+    static cardComponent(title, poster_path, release_date, favorite, watched, type){
         UI.numberOfImgs++;
+        console.log(type);
+        let img = '';
+        if(type == "INIT")
+            img = `<img src="img/loading.gif" data-src='${poster_path}' loading="lazy" draggable=false>`;
+        else if(type == "ADD")
+            img = `<img src="${poster_path}" loading="lazy" draggable=false>`;
+
         let html = `
             <div class="card" data-title="${title}" draggable=true>
                 <div class="image">
-                    <img src="img/loading.gif" data-src='${poster_path}' loading="lazy" draggable=false>
+                    ${img}
                 </div>
                 <div class="buttons">
                     <div class="btn favorite ${favorite ? "active" : ""}"><i class="fa-regular fa-heart unchecked"></i><i class="fa-solid fa-heart checked"></i></div>
@@ -103,8 +111,6 @@ class UI{
      * Display MBE data
      */
     static display(){
-        let d1 = new Date();
-
         let html = "";
         let options = `<li>
                             <label data-list="All">All <i class="fa-solid fa-check"></i></label>
@@ -116,7 +122,7 @@ class UI{
                 if(list !== "Favorites" && list !== "Bookmarks") html += UI.listActionButtons();
                 html += `</h2><div class="container">`;
             for(let title of DATA["lists"][list]){
-                html += UI.cardComponent(title, DATA['all'][title]['poster'], DATA['all'][title]['release_date'], DATA['all'][title]['favorite'], DATA['all'][title]['watched']);
+                html += UI.cardComponent(title, DATA['all'][title]['poster'], DATA['all'][title]['release_date'], DATA['all'][title]['favorite'], DATA['all'][title]['watched'], "INIT");
             }
             html += "</div></div>";
             options += `<li>
@@ -126,10 +132,6 @@ class UI{
 
         $("#wrapper").html(html);
         $(".checkbox-dropdown-list").html(options);
-
-        let d2 = new Date();
-
-        console.log((d2 - d1) / 1000);
     }
 
     
