@@ -111,6 +111,9 @@ class UI{
      * Display MBE data
      */
     static display(){
+        UI.numberOfImgs = 0;
+        UI.numberOfLoadedImgs = 0;
+        
         let html = "";
         let options = `<li>
                             <label data-list="All">All <i class="fa-solid fa-check"></i></label>
