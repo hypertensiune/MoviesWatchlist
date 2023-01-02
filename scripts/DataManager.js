@@ -98,6 +98,9 @@ class DataManager{
         if(confirm(`Do you want to delete "${list}"`)){
             for(let movie of DATA.lists[list]){
                 DATA.all[movie].refs--;
+                if(DATA.all[movie].refs <= 0){
+                    delete DATA.all[movie];
+                }
             }
             delete DATA.lists[list];
         }
@@ -106,7 +109,6 @@ class DataManager{
     static renameList(list){
         let newlist = prompt("Enter new name", [list]);
         if(newlist){
-            console.log(newlist);
             DATA.lists[newlist] = DATA.lists[list];
             delete DATA.lists[list];
 

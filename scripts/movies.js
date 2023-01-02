@@ -39,6 +39,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 
 $(window).on("load", async () => {
     DATA = await DataManager.getData();
+    console.log(DATA);
     UI.display();
     addListeners();
     addPermanentListeners();
