@@ -111,6 +111,8 @@ function getFile(token, fileID){
 }
 
 function backupFile(token, fileID, data){
+    console.log("uploading ", data);
+
     fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileID}?uploadType=media`, {
         method: "PATCH",
         headers: new Headers({Authorization: `Bearer ${token}`, 'Content-Type': "application/json"}),
@@ -126,6 +128,7 @@ function backupFile(token, fileID, data){
 }
 
 function uploadFile(token, data){
+    console.log("uploading ", data);
     let metadata = {
         mimeType: "application/json",
         name: `MoviesWatchlist_${ID}.json`

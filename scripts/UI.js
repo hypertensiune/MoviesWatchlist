@@ -76,7 +76,6 @@ class UI{
      */
     static cardComponent(title, poster_path, release_date, favorite, watched, type){
         UI.numberOfImgs++;
-        console.log(type);
         let img = '';
         if(type == "INIT")
             img = `<img src="img/loading.gif" data-src='${poster_path}' loading="lazy" draggable=false>`;

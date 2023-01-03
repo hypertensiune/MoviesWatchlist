@@ -36,16 +36,10 @@ class DataManager{
     static removeTitleFromList(title, list){
         if(list != "Favorites"){
             DATA.all[title].refs--;
+            UI.removeCardComponent(list, title);
+            DATA.lists[list] = DATA.lists[list].filter(t => t !== title);
             if(DATA.all[title].refs <= 0){
                 delete DATA.all[title];
-                for(let list2 in DATA.lists){
-                    UI.removeCardComponent(list2, title);
-                    DATA.lists[list2] = DATA.lists[list2].filter(t => t !== title);
-                }
-            }
-            else{
-                UI.removeCardComponent(list, title);
-                DATA.lists[list] = DATA.lists[list].filter(t => t !== title);
             }
         }
         else{
@@ -121,7 +115,7 @@ class DataManager{
         if(name){
             DATA.lists[name] = [];
             DataManager.saveData();
-            UI.display();
+            window.location.reload();
         }
     }
 }

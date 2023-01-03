@@ -202,22 +202,16 @@ class ContentScript{
     getPoster(){
         let imdbURL = document.querySelector("div.TzHB6b.cLjAic.K7khPe a[href^='https://www.imdb.com/']").getAttribute("href");
 
-        let posterPath = document.querySelector("div.PZPZlf").getAttribute("data-lpage");
-
-        if(!posterPath.match("google\.com\/search"))
-            this.poster = posterPath;
-        else{
-            let p = window.sessionStorage.getItem(`${this.title}_poster`);
-            if(p && p != "")
-                this.poster = p;
-            else
-                return new Promise((resolve) => {
-                    chrome.runtime.sendMessage({action: "getPosterFromIMDB", url: imdbURL}, resolve);
-                }).then((res) => {
-                    this.poster = res;
-                    window.sessionStorage.setItem(`${this.title}_poster`, res);
-                });
-        }
+        let p = window.sessionStorage.getItem(`${this.title}_poster`);
+        if(p && p != "")
+            this.poster = p;
+        else
+            return new Promise((resolve) => {
+                chrome.runtime.sendMessage({action: "getPosterFromIMDB", url: imdbURL}, resolve);
+            }).then((res) => {
+                this.poster = res;
+                window.sessionStorage.setItem(`${this.title}_poster`, res);
+            });
     }
 
     setColorTheme(){
@@ -246,7 +240,7 @@ class ContentScript{
         document.querySelectorAll("#movie-lists li").forEach(e => e.addEventListener("click", async function(){
             let list = this.getAttribute("data-list");
             let inList = this.classList.contains("active");
-
+            
             this.classList.toggle("active");
             if(!inList){
                 await that.getPoster();
