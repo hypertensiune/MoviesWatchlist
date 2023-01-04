@@ -9,7 +9,6 @@ class ContentScript{
     constructor(htmlTarget, title, date, defaultControls = null, path){
         this.htmlQuery = htmlTarget;
         this.titleQuery = title;
-        this.dateQuery = date;
         this.htmlSourcePath = path;
         this.defaultControlsQuery = defaultControls;
 
@@ -40,17 +39,6 @@ class ContentScript{
         console.log("Title:", this.title);
     }
 
-    getDate(){
-        this.date = null;
-        let i = 0;
-        while(i < this.dateQuery.length && !this.date){
-            this.date = document.querySelector(this.dateQuery[i++]);
-        }
-        this.date = this.date.innerText.split('(')[0];
-
-        console.log("release date: ", this.date);
-    }
-
     getDefaultControls(){
         this.defaultControls = null;
         let i = 0;
@@ -77,7 +65,6 @@ class ContentScript{
 
             this.getHtml();
             this.getTitle();
-            this.getDate();
             this.getDefaultControls();
 
             this.defaultControls.style.display = "none";
@@ -97,7 +84,7 @@ class ContentScript{
             document.querySelector("#bookmark-btn").addEventListener("click", async function(){
                 this.classList.toggle("active");
                 if(!that.isBookmarked){
-                    await that.getPoster();
+                    await that.getIMDBData();
                     that.addToList("Bookmarks", that.title, that.date, that.poster);
                     that.isBookmarked = true;
                 }
@@ -199,18 +186,24 @@ class ContentScript{
         return false;
     }
 
-    getPoster(){
+    getIMDBData(){
         let imdbURL = document.querySelector("div.TzHB6b.cLjAic.K7khPe a[href^='https://www.imdb.com/']").getAttribute("href");
 
         let p = window.sessionStorage.getItem(`${this.title}_poster`);
-        if(p && p != "")
+        let d = window.sessionStorage.getItem(`${this.title}_date`);
+        if((p && p != "") && (d && d != "")){
             this.poster = p;
+            this.date = d;
+        }
         else
             return new Promise((resolve) => {
-                chrome.runtime.sendMessage({action: "getPosterFromIMDB", url: imdbURL}, resolve);
+                chrome.runtime.sendMessage({action: "getDataFromIMDB", url: imdbURL}, resolve);
             }).then((res) => {
-                this.poster = res;
-                window.sessionStorage.setItem(`${this.title}_poster`, res);
+                this.poster = res.poster;
+                this.date = res.date;
+                window.sessionStorage.setItem(`${this.title}_poster`, this.poster);
+                window.sessionStorage.setItem(`${this.title}_date`, this.date);
+                console.log(this.poster, this.date);
             });
     }
 
@@ -243,7 +236,7 @@ class ContentScript{
             
             this.classList.toggle("active");
             if(!inList){
-                await that.getPoster();
+                await that.getIMDBData();
                 that.addToList(list, that.title, that.date, that.poster);
             }
             else{
