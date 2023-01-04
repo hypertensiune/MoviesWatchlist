@@ -2,26 +2,24 @@ chrome.action.onClicked.addListener(async () => {
     chrome.tabs.create({url: chrome.runtime.getURL('movies.html')});
 });
 
-async function getPosterFromIMDB(url){
-    let poster = "";
+async function getDataFromIMDB(url){
 
-    chrome.tabs.create({url: url + "?moviebookmarkextension", active: false});
-    await new Promise(resolve => {
+    chrome.tabs.create({url: url + "?moviewatchlistextension", active: false});
+    return new Promise(resolve => {
         chrome.runtime.onMessage.addListener(resolve);
     }).then(res => {
-        if(res.action == "fetchedPoster"){
-            poster = res.url;
+        if(res.action == "fetchedData"){
+            return {poster: res.url, date: res.date};
         }
     });
-    return poster;
 }
 
 // communication with the extension page
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if(request.action == "getPosterFromIMDB"){
+    if(request.action == "getDataFromIMDB"){
         (async () => {
-            let poster = await getPosterFromIMDB(request.url);
-            sendResponse(poster);
+            let {poster, date} = await getDataFromIMDB(request.url);
+            sendResponse({poster: poster, date: date});
         })();
     }
     return true;
