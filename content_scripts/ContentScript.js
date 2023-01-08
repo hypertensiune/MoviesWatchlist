@@ -11,6 +11,7 @@ class ContentScript{
         this.titleQuery = title;
         this.htmlSourcePath = path;
         this.defaultControlsQuery = defaultControls;
+        this.date = date;
 
         this.isBookmarked = false;
         this.isExtensionActive = true;
@@ -18,6 +19,8 @@ class ContentScript{
         this.getData();
 
         this.state = "off";
+
+        this.type = null;
     }
 
     getHtml(){
@@ -37,6 +40,10 @@ class ContentScript{
         this.title = this.title.innerText;
 
         console.log("Title:", this.title);
+    }
+
+    getDate(){
+        this.date = document.querySelector(this.date).innerText.split('(')[0];
     }
 
     getDefaultControls(){
@@ -66,6 +73,7 @@ class ContentScript{
             this.getHtml();
             this.getTitle();
             this.getDefaultControls();
+            this.getDate();
 
             this.defaultControls.style.display = "none";
             await this.fetchHTML(this.htmlSourcePath);
@@ -180,8 +188,10 @@ class ContentScript{
         console.log(txt);
         if(txt){
             let w = txt.innerText.split(' ').pop();
-            if(w == "film" || w == "show")
+            if(w == "film" || w == "show"){
+                this.type = w;
                 return true;
+            }
         }
         return false;
     }
@@ -200,9 +210,12 @@ class ContentScript{
                 chrome.runtime.sendMessage({action: "getDataFromIMDB", url: imdbURL}, resolve);
             }).then((res) => {
                 this.poster = res.poster;
-                this.date = res.date;
+                if(this.type == "show")
+                    this.date = res.date;
+
                 window.sessionStorage.setItem(`${this.title}_poster`, this.poster);
                 window.sessionStorage.setItem(`${this.title}_date`, this.date);
+
                 console.log(this.poster, this.date);
             });
     }
