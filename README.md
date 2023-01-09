@@ -60,4 +60,4 @@ By default the application only allows you to download and upload files locally.
 
 ## Notes
 - The extension is using the new Manifest V3.
-- Developed and tested with Google Chrome. Not sure if it works with other Chromium based browsers eg. Brave.
+- Developed and tested with Google Chrome. Should work with other Chromium based browsers.
