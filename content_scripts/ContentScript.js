@@ -184,15 +184,19 @@ class ContentScript{
     //#region ================= HELPERS ==========================
 
     isMovieShow(){
-        let txt = document.querySelector("div.a19vA span");
-        console.log(txt);
-        if(txt){
-            let w = txt.innerText.split(' ').pop();
-            if(w == "film" || w == "show"){
-                this.type = w;
+        let test = document.querySelector(this.htmlQuery[0]);
+        if(test) {
+            this.type = "film";
+            return true;
+        }
+        else {
+            test = document.querySelector(this.htmlQuery[1]);
+            if(test){
+                this.type = "show";
                 return true;
             }
         }
+
         return false;
     }
 
