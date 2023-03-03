@@ -10,7 +10,7 @@ class UI{
      */
     static removeCardComponent(list, title){
         if(DATA.lists[list].indexOf(title) != -1){
-            $(`#wrapper div.list[data-list='${list}'] div.card[data-title='${title}']`).remove();
+            $(`#wrapper div.list[data-list="${list}"] div.card[data-title="${title}"]`).remove();
         
             let n = parseInt($(`#wrapper div.list[data-list='${list}'] h2 span.size`).text()) - 1;
             $(`#wrapper div.list[data-list='${list}'] h2 span.size`).text(n);
@@ -21,7 +21,7 @@ class UI{
      * Mark a title as favorite 
      */
     static addFavorite(title){
-        $(`#wrapper div.card[data-title='${title}'] div.btn.favorite`).addClass("active");
+        $(`#wrapper div.card[data-title="${title}"] div.btn.favorite`).addClass("active");
         
         UI.addTitleToList(title, "Favorites");
     }
@@ -50,7 +50,7 @@ class UI{
      * Unmark a title as favorite
      */
     static removeFavorite(title){
-        $(`#wrapper div.card[data-title='${title}'] div.btn.favorite`).removeClass("active");
+        $(`#wrapper div.card[data-title="${title}"] div.btn.favorite`).removeClass("active");
         UI.removeCardComponent("Favorites", title);
     }
 
