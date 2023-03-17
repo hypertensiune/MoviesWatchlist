@@ -2,7 +2,7 @@
 <sub>
     <img src="img/img2.png" witdh=38 height=38></img>
 </sub>
-Hyper Movie Watchlist
+Movie Watchlist
 </h1>
 
 <p align="center">Keep track of your favorite movies in one place</p>
