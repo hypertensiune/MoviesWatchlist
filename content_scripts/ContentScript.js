@@ -11,7 +11,7 @@ class ContentScript{
         this.titleQuery = title;
         this.htmlSourcePath = path;
         this.defaultControlsQuery = defaultControls;
-        this.date = date;
+        this.dateQuery = date;
 
         this.isBookmarked = false;
         this.isExtensionActive = true;
@@ -43,7 +43,7 @@ class ContentScript{
     }
 
     getDate(){
-        this.date = document.querySelector(this.date).innerText.split('(')[0];
+        this.date = document.querySelector(this.dateQuery).innerText.split('(')[0];
     }
 
     getDefaultControls(){
